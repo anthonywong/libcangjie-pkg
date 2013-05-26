@@ -1,0 +1,30 @@
+Source: libcangjie
+Section: utils
+Priority: optional
+Maintainer: Anthony Wong <anthony.wong@ubuntu.com>
+Build-Depends: debhelper (>= 9),
+               autotools-dev,
+               libdb++-dev,
+               libberkeleydb-perl
+Standards-Version: 3.9.4
+Homepage: http://github.com/wanleung/libcangjie
+
+Package: libcangjie1
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Cangjie input method library
+ This is a library that provides functions related to the Cangjie
+ Chinese input method.
+
+Package: libcangjie-dev
+Section: libdevel
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends},
+         libdb++-dev,
+         libcangjie1 (= ${binary:Version})
+Description: Cangjie input method library (development)
+ This is a library that provides functions related to the Cangjie
+ Chinese input method.
+ .
+ This package contains the development files.
