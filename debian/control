@@ -8,6 +8,8 @@ Build-Depends: debhelper (>= 9),
                libberkeleydb-perl
 Standards-Version: 3.9.4
 Homepage: http://github.com/wanleung/libcangjie
+Vcs-Git: git://github.com/anthonywong/libcangjie.git
+Vcs-Browser: https://github.com/anthonywong/libcangjie
 
 Package: libcangjie1
 Section: libs

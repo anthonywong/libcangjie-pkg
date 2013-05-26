@@ -10,7 +10,7 @@ Files: freq-data/countfreq.sh freq-data/
 Copyright: 2013 Ben Au <benau2006@yahoo.com.hk>
 License: LGPL-3+
 
-Files: freq-data/quick-classic.txt debian/*
+Files: debian/*
 Copyright: 2013 Anthony Wong <anthony.wong@ubuntu.com>
 License: LGPL-3+
 
