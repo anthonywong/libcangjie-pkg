@@ -1,4 +1,4 @@
-libcangjie (0.0.1a+git20130505-1) unstable; urgency=low
+libcangjie (0.0.1a+git20130528-1) unstable; urgency=low
 
   * Upload to Debian with latest source from upstream git. (Closes: #702867)
 
