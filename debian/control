@@ -1,15 +1,16 @@
 Source: libcangjie
 Section: utils
 Priority: optional
-Maintainer: Anthony Wong <anthony.wong@ubuntu.com>
+Maintainer: IME Packaging Team <pkg-ime-devel@lists.alioth.debian.org>
+Uploaders: Anthony Wong <anthony.wong@ubuntu.com>
 Build-Depends: debhelper (>= 9),
                autotools-dev,
                libdb++-dev,
                libberkeleydb-perl
 Standards-Version: 3.9.4
 Homepage: http://github.com/wanleung/libcangjie
-Vcs-Git: git://github.com/anthonywong/libcangjie.git
-Vcs-Browser: https://github.com/anthonywong/libcangjie
+Vcs-Git: git://git.debian.org/git/pkg-ime/libcangjie.git
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-ime/libcangjie.git;a=summary
 
 Package: libcangjie1
 Section: libs
