@@ -2,7 +2,7 @@ libcangjie (0.0.1a+git20130528-1) unstable; urgency=low
 
   * Upload to Debian with latest source from upstream git. (Closes: #702867)
 
- -- Anthony Wong <anthony.wong@ubuntu.com>  Sun, 26 May 2013 15:08:38 +0800
+ -- Anthony Wong <anthony.wong@ubuntu.com>  Sun, 15 Sep 2013 22:43:40 +0800
 
 libcangjie (0.0.1-0ubuntu1) raring; urgency=low
 

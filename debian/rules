@@ -7,4 +7,5 @@
 	dh $@ --with autotools-dev
 
 override_dh_auto_configure:
+	./autogen.sh
 	./configure --prefix=/usr --enable-static --disable-opts --disable-strip CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)"
