@@ -1,6 +1,6 @@
 Source: libcangjie
 Section: utils
-Priority: optional
+Priority: extra
 Maintainer: IME Packaging Team <pkg-ime-devel@lists.alioth.debian.org>
 Uploaders: Anthony Wong <anthony.wong@ubuntu.com>
 Build-Depends: debhelper (>= 9),
