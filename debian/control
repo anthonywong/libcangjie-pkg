@@ -19,6 +19,7 @@ Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends}, ${misc:Depends}
+Multi-Arch: same
 Description: Cangjie input method library
  This is a library that provides functions related to the Cangjie
  Chinese input method.
@@ -29,6 +30,7 @@ Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
          libdb++-dev,
          libcangjie2 (= ${binary:Version})
+Multi-Arch: same
 Description: Cangjie input method library (development)
  This is a library that provides functions related to the Cangjie
  Chinese input method.
