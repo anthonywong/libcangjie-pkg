@@ -1,148 +1,145 @@
 # Point to our macro directory and pick up user flags from the environment
 ACLOCAL_AMFLAGS  = -I m4 ${ACLOCAL_FLAGS}
 
-# -- bin/ ----------------------------
-bin_PROGRAMS = \
-	bin/libcangjie_cli \
-	bin/libcangjie_dbbuilder \
-	bin/libcangjie_char_type_builder \
-	bin/libcangjie_freqdbbuilder \
-	bin/libcangjie_classicfreqdbbuilder \
-	$(NULL)
 
-bin_libcangjie_cli_SOURCES = \
-	src/cli.cpp \
-	$(NULL)
-bin_libcangjie_cli_LDADD = $(DBCXX_LIBS) libutil.la libcangjie.la
-
-bin_libcangjie_dbbuilder_SOURCES = \
-	src/dbbuilder.cpp \
-	$(NULL)
-bin_libcangjie_dbbuilder_LDADD = $(DBCXX_LIBS) libutil.la
-
-bin_libcangjie_char_type_builder_SOURCES = \
-	src/char_type_builder.cpp \
-	$(NULL)
-bin_libcangjie_char_type_builder_LDADD = $(DBCXX_LIBS) libutil.la
-
-bin_libcangjie_classicfreqdbbuilder_SOURCES = \
-	src/classicfreqdbbuilder.cpp \
-	$(NULL)
-bin_libcangjie_classicfreqdbbuilder_LDADD = $(DBCXX_LIBS) libutil.la
-
-bin_libcangjie_freqdbbuilder_SOURCES = \
-	src/freqbuilder.cpp \
-	$(NULL)
-bin_libcangjie_freqdbbuilder_LDADD = $(DBCXX_LIBS)
-
-# -- src/ ----------------------------
+# -- Library -------------------------
 lib_LTLIBRARIES = libcangjie.la
+
+libcangjie_la_LDFLAGS = -version-info $(CANGJIE_SO_VERSION) $(GCOV_LDFLAGS)
 libcangjie_la_SOURCES = \
-	src/fullchar.cpp \
-	src/chchar.cpp \
-	src/cangjie.cpp \
+	src/cangjie.c \
+	src/cangjiechar.c \
+	src/cangjiecharlist.c \
 	$(NULL)
-libcangjie_la_CXXFLAGS = -I./src
-libcangjie_la_LDFLAGS = -version-info $(CANGJIE_SO_VERSION)
-libcangjie_la_LIBADD = $(DBCXX_LIBS) libutil.la
-
-noinst_LTLIBRARIES = libutil.la
-libutil_la_SOURCES = \
-	src/util.cpp \
-	src/util.h \
-	$(NULL)
-libutil_la_CXXFLAGS = -I./src
-
+libcangjie_la_LIBADD = $(sqlite3_LIBS)
 libcangjie_la_include_HEADERS = \
 	src/cangjie.h \
-	src/chchar.h \
+	src/cangjiechar.h \
+	src/cangjiecharlist.h \
+	src/cangjiecommon.h \
+	src/cangjieerrors.h \
 	$(NULL)
 libcangjie_la_includedir = $(includedir)/cangjie
 
-src/cangjieconfig.h: src/cangjieconfig.h.in Makefile
-	$(MKDIR_P) src
-	sed -e 's&@PKGDATADIR@&$(pkgdatadir)&g' $< > $@
 
-# -- data/ ---------------------------
-pkgconfig_DATA = \
-	data/cangjie.pc \
+# -- Tools ---------------------------
+bin_PROGRAMS = \
+	bin/libcangjie_bench \
+	bin/libcangjie_cli \
+	bin/libcangjie_dbbuilder \
 	$(NULL)
-pkgconfigdir = $(libdir)/pkgconfig
 
-data/%.mb: bin/libcangjie_dbbuilder tables/%.txt
-	$(MKDIR_P) data
+bin_libcangjie_bench_SOURCES = src/bench.c
+bin_libcangjie_bench_LDADD = libcangjie.la
+
+bin_libcangjie_dbbuilder_SOURCES = src/dbbuilder.c
+bin_libcangjie_dbbuilder_LDADD = $(sqlite3_LIBS)
+
+bin_libcangjie_cli_SOURCES = src/cli.c
+bin_libcangjie_cli_LDADD = libcangjie.la
+
+
+# -- Data ----------------------------
+data/cangjie.db: bin/libcangjie_dbbuilder data/table.txt
+	$(AM_V_GEN)rm -f $@; \
+	$(MKDIR_P) data; \
 	$^ $@ >/dev/null
 
-data/wordfreq.mb: bin/libcangjie_freqdbbuilder freq-data/frequency.txt
-	$(MKDIR_P) data
-	$^ $@ >/dev/null
-
-data/classicfreq.mb: bin/libcangjie_classicfreqdbbuilder freq-data/classic-frequency.txt
-	$(MKDIR_P) data
-	$^ $@ >/dev/null
-
-data/tc.mb: bin/libcangjie_char_type_builder filter/tc.txt
-	$(MKDIR_P) data
-	$^ $@ >/dev/null
-
-data/sc.mb: bin/libcangjie_char_type_builder filter/sc.txt
-	$(MKDIR_P) data
-	$^ $@ >/dev/null
-
-libcangjie_data_DATA = \
-	data/cj3-cc.mb \
-	data/cj3-cjk.mb \
-	data/cj3-sc.mb \
-	data/cj3-tc.mb \
-	data/cj5-cc.mb \
-	data/cj5-cjk.mb \
-	data/cj5-sc.mb \
-	data/cj5-tc.mb \
-	data/wordfreq.mb \
-	data/classicfreq.mb \
-	data/tc.mb \
-	data/sc.mb \
-	$(NULL)
+libcangjie_data_DATA = data/cangjie.db
 libcangjie_datadir = $(pkgdatadir)
 
-# -- Common --------------------------
-BUILT_SOURCES = \
-	src/cangjieconfig.h \
+pkgconfig_DATA = data/cangjie.pc
+pkgconfigdir = $(libdir)/pkgconfig
+
+
+# -- Unit tests ----------------------
+if GCOV_ENABLED
+gcov-report.txt: gcov-clean
+	$(AM_V_GEN)(rm -f $@; \
+	echo -e "\nTest coverage for libcangjie\n=============================\n" >> $@; \
+	echo -e "Details\n-------\n" >> $@; \
+	total_covered=0; total_actual=0; \
+	for file in $(filter %.c,$(libcangjie_la_SOURCES)); do \
+	    file=`basename $$file`; \
+	    gcda=$${file/.c/.gcda}; \
+	    gcov -o .libs/$$gcda $$file > /dev/null; \
+	    if test -f $$file.gcov; then \
+	        actual=`grep -v ' -:' $$file.gcov | wc -l`; \
+	        uncovered=`grep '#####:' $$file.gcov | wc -l`; \
+	        covered=$$((actual - uncovered)); \
+	        total_covered=$$((total_covered + covered)); \
+	        total_actual=$$((total_actual + actual)); \
+	        echo "$$file: $$covered $$actual $$((($$covered * 100) / $$actual))" \
+                    | $(AWK) '{ printf "%-20s %3s / %3s (%3s%%)\n", $$1, $$2, $$3, $$4 }';  \
+	    fi \
+	done >> $@; \
+	cd $(abs_srcdir); \
+	echo -e "\nTotal\n-----\n" >> $@; \
+	echo -e "Source lines:       $$total_actual" >> $@; \
+	echo -e "Covered statements: $$total_covered" >> $@; \
+	echo -e "$$((($$total_covered * 100) / $$total_actual))" \
+	    | awk '{ printf "Total coverage:     %3s%%\n", $$1 }' >> $@)
+
+gcov: gcov-report.txt
+	@cat gcov-report.txt
+gcov-clean:
+	@find . -name "*.gcda" -o -name "*.gcov" -delete
+else
+gcov-report.txt:
+	@true
+gcov-clean:
+	@true
+gcov:
+	@echo "Need to reconfigure with --enable-gcov"
+endif	# GCOV_ENABLED
+
+check-local: gcov
+
+check_PROGRAMS = \
+	tests/test_cangjie \
+	tests/test_cangjiechar \
+	tests/test_cangjiecharlist \
 	$(NULL)
 
+# FIXME: Find a way to pass this as an envvar for all the tests
+tests_test_cangjie_CFLAGS = -DCANGJIE_DB='"$(builddir)/data/cangjie.db"'
+
+tests_test_cangjie_LDADD = libcangjie.la
+tests_test_cangjiechar_LDADD = libcangjie.la
+tests_test_cangjiecharlist_LDADD = libcangjie.la
+TESTS = $(check_PROGRAMS)
+
+
+# -- Common --------------------------
+AM_CPPFLAGS = -I$(top_srcdir)/src
+AM_CFLAGS = -DCANGJIE_DB='"$(libcangjie_datadir)/cangjie.db"' $(GCOV_CFLAGS)
+
+AUTHORS:
+	@if test -d "$(srcdir)/.git"; then \
+	    echo Creating $@ && \
+	    ( cd "$(top_srcdir)" && \
+	      echo -e '# Generated by Makefile. Do not edit.\n#'; \
+	      echo -e '# libcangjie was written by these people:\n'; \
+	      git log --no-merges --pretty=format:"%an <%ae>" \
+	          | sort | uniq; \
+	      echo -e "\n# libcangjie would not have been possible without Wan Leung Wong's work on the"; \
+	      echo -e '# original libcangjie: https://github.com/wanleung/libcangjie'; \
+	    ) > $@.tmp && mv -f $@.tmp $@ \
+	    || ( rm -f $@.tmp ; echo Failed to generate $@ >&2 ); \
+	fi
+
 CLEANFILES = \
-	__db.* \
-	data/*.mb \
-	data/*.pc \
-	src/cangjieconfig.h \
+	AUTHORS \
+	data/cangjie.db \
+	data/cangjie.pc \
 	$(NULL)
 
 EXTRA_DIST = \
 	autogen.sh \
+	data/README.table.rst \
+	data/table.txt \
+	INSTALL.md \
 	README.md \
-	src/cangjieconfig.h.in \
-	tables/cj3-cc.txt \
-	tables/cj3-cjk.txt \
-	tables/cj3-sc.txt \
-	tables/cj3-tc.txt \
-	tables/cj5-cc.txt \
-	tables/cj5-cjk.txt \
-	tables/cj5-sc.txt \
-	tables/cj5-tc.txt \
-	tables/jp.txt \
-	tables/COPYING.tables \
-	tables/README.tables \
-	tests/testdbs.pl \
-	freq-data/README \
-	freq-data/countfreq.sh \
-	freq-data/getcorpus.cpp \
-	freq-data/frequency.txt \
-	freq-data/classic-frequency.txt \
-	freq-data/get_classic_freq.py \
-	filter/tc.txt \
-	filter/sc.txt \
 	$(NULL)
 
-TESTS = \
-	tests/testdbs.pl \
-	$(NULL)
+.PHONY: AUTHORS gcov gcov-clean gcov-report.txt
