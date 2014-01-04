@@ -1,51 +1,75 @@
-libcangjie
-==========
+This is a C library implementing the Cangjie input method.
 
-CangJie Input Method Library
+Below is a trivial example of how to use it:
 
-Installing
-==========
+```c
+#include <stdio.h>
+#include <cangjie.h>
 
-This is pretty much a standard Autotools project. You can install it with the
-usual sequence:
+int main() {
+    Cangjie *cj;
+    int ret = cangjie_new(&cj, CANGJIE_VERSION_3,
+                          CANGJIE_FILTER_BIG5 | CANGJIE_FILTER_HKSCS);
+    CangjieCharList *chars;
+    CangjieCharList *iter;
+    ret = cangjie_get_characters(cj, "d*d", &chars);
 
-    $ ./configure
-    $ make
-    # make install
+    if (ret == CANGJIE_NOCHARS) {
+        printf("No chars with code '%s'\n", "d*d");
+        cangjie_free(cj);
+        return 1;
+    }
 
-Of course, if you got the sources from Git, you will need to run the
-`autogen.sh` script first.
+    iter = chars;
 
-Note: On some multilib-enabled Linux distributions, the 64 bits libraries are
-installed in `/usr/lib64`. If building for such a 64 bits distribution, you
-should pass the `--libdir=/usr/lib64` parameter to the `configure` script.
+    while (1) {
+        if (iter == NULL)
+            break;
 
-Dependencies
-============
+        printf("Char: %s, code: '%s', classic frequency: %d\n",
+               iter->c->chchar, iter->c->code, iter->c->frequency);
 
-You will need the following to build this library:
+        iter = iter->next;
+    }
 
-  - the C++ libdb bindings:
-      -> http://www.oracle.com/database/berkeley-db/
+    cangjie_char_list_free(chars);
+    cangjie_free(cj);
+    return 0;
+}
+```
 
-  - a C++ compiler
-      We strongly recomment g++
-      -> http://gcc.gnu.org/
+For more details, refer to the documentation, either
+[online](http://cangjians.github.io/projects/libcangjie/documentation)
+or the one shipped with this software.
 
-Legal
-=====
+Development happens [on github](https://github.com/Cangjians/libcangjie), and
+stable release tarballs will be available when we reach that point.
 
-Copyright (C) 2012  Wan Leung Wong <me at wanleung dot com>
+## History
 
-libcangjie is free software: you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+This library is based on
+[Wan Leung Wong's original libcangjie](https://github.com/wanleung/libcangjie).
 
-libcangjie is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
+In fact, when writing it, we tried to stay close to the original libcangjie
+API, because Wan Leung had done a pretty good job with it.
 
-You should have received a copy of the GNU Lesser General Public License
-along with libcangjie.  If not, see <http://www.gnu.org/licenses/>.
+However, we felt the need to start afresh for a few reasons:
+
+* due to real life constraints, Wan Leung didn't have any time to dedicate to
+  libcangjie any more
+
+* we felt that some of the technical decisions in the original libcangjie were
+  not the wisest choice
+
+Nevertheless, this library would probably not exist if Wan Leung hadn't opened
+the way, so we feel it is important to give him credit.
+
+Thank you very much Wan Leung!
+
+## Legalities
+
+libcangjie is offered under the terms of the
+[GNU Lesser General Public License, either version 3 or any later version](http://www.gnu.org/licenses/lgpl.html).
+
+We won't ask you to sign a copyright assignment or any other kind of silly and
+tedious legal document, so just send us patches and/or pull requests!

@@ -4,9 +4,9 @@ libdir=@libdir@
 includedir=@includedir@
 
 Name: @PACKAGE_NAME@
-Description: C++ library to implement the Cangjie and Quick input methods
+Description: Library implementing the Cangjie input method
 URL: @PACKAGE_URL@
 Version: @PACKAGE_VERSION@
 Cflags: -I${includedir}/cangjie
-Libs: -L${libdir} @DBCXX_LIBS@ -lcangjie
-Libs.private: @DBCXX_LIBS@
+Requires: sqlite3
+Libs: -L${libdir} -lcangjie
