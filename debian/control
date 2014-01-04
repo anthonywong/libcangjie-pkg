@@ -5,29 +5,30 @@ Maintainer: IME Packaging Team <pkg-ime-devel@lists.alioth.debian.org>
 Uploaders: Anthony Wong <anthony.wong@ubuntu.com>
 Build-Depends: debhelper (>= 9),
                autotools-dev,
-               libdb++-dev,
-               libberkeleydb-perl,
+               libsqlite3-dev,
                libtool,
-               automake
-Standards-Version: 3.9.4
-Homepage: http://github.com/wanleung/libcangjie
+               automake,
+               pkg-config
+Standards-Version: 3.9.5
+Homepage: https://github.com/Cangjians/libcangjie
 Vcs-Git: git://git.debian.org/git/pkg-ime/libcangjie.git
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-ime/libcangjie.git;a=summary
 
-Package: libcangjie1
+Package: libcangjie2
 Section: libs
 Architecture: any
+Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Cangjie input method library
  This is a library that provides functions related to the Cangjie
  Chinese input method.
 
-Package: libcangjie-dev
+Package: libcangjie2-dev
 Section: libdevel
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
          libdb++-dev,
-         libcangjie1 (= ${binary:Version})
+         libcangjie2 (= ${binary:Version})
 Description: Cangjie input method library (development)
  This is a library that provides functions related to the Cangjie
  Chinese input method.
