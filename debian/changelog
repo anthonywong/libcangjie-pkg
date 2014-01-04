@@ -1,3 +1,9 @@
+libcangjie (1.0-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Anthony Wong <anthony.wong@ubuntu.com>  Sat, 04 Jan 2014 16:51:04 +0800
+
 libcangjie (0.0.1a+git20130528-1) unstable; urgency=low
 
   * Upload to Debian with latest source from upstream git. (Closes: #702867)

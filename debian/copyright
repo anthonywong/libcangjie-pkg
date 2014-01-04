@@ -1,22 +1,22 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: libcangjie
-Source: http://github.com/wanleung/libcangjie
+Upstream-Contact: Mathieu Bridon <bochecha@fedoraproject.org>
+Source: https://github.com/Cangjians/libcangjie
 
 Files: *
-Copyright: 2012 Wan Leung Wong <me@wanleung.com>
+Copyright: 2013 Koala Yeung <koalay@gmail.com>
+           2013 Linquize <linquize@yahoo.com.hk>
+           2013 Mathieu Bridon <bochecha@fedoraproject.org>
+           2013 jeremy-fouriaux
 License: LGPL-3+
 
-Files: freq-data/countfreq.sh freq-data/
-Copyright: 2013 Ben Au <benau2006@yahoo.com.hk>
-License: LGPL-3+
+Files: data/table.txt
+Copyright: 2013 The libcangjie authors
+License: Public domain
 
 Files: debian/*
-Copyright: 2013 Anthony Wong <anthony.wong@ubuntu.com>
+Copyright: 2013-2014 Anthony Wong <anthony.wong@ubuntu.com>
 License: LGPL-3+
-
-Files: tables/*
-Copyright: 倉頡之友 。馬來西亞  http://www.chinesecj.com
-License: public domain
 
 License: LGPL-3+
   This program is free software: you can redistribute it and/or modify
