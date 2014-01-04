@@ -40,7 +40,7 @@ Package: libcangjie2-dev-tools
 Section: devel
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
-         libcangjie2-dev (= ${binary:Version})
+         libcangjie2 (= ${binary:Version})
 Multi-Arch: foreign
 Description: Cangjie input method library development tools
  This is a library that provides functions related to the Cangjie
