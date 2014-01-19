@@ -12,7 +12,7 @@ Build-Depends: debhelper (>= 9),
                pkg-config
 Standards-Version: 3.9.5
 Homepage: https://github.com/Cangjians/libcangjie
-Vcs-Git: git://anonscm.debian.org/git/pkg-ime/libcangjie.git
+Vcs-Git: git://anonscm.debian.org/pkg-ime/libcangjie.git
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-ime/libcangjie.git;a=summary
 
 Package: libcangjie2
@@ -20,10 +20,22 @@ Section: libs
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, libcangjie2-data
 Description: Cangjie input method library
  This is a library that provides functions related to the Cangjie
  Chinese input method.
+
+Package: libcangjie2-data
+Section: libs
+Architecture: all
+Multi-Arch: foreign
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Cangjie input method library (common database)
+ This is a library that provides functions related to the Cangjie
+ Chinese input method.
+ .
+ This package contains the sqlite database of the library.
 
 Package: libcangjie2-dev
 Section: libdevel

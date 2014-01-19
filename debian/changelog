@@ -3,7 +3,8 @@ libcangjie (1.0-1) unstable; urgency=low
   * New upstream release.
   * SONAME version bump from 1 to 2.
   * Multiarch support.
-  * Add new packages libcangjie2-dev-tools and libcangjie2-dbg.
+  * Add new packages libcangjie2-data, libcangjie2-dev-tools and
+    libcangjie2-dbg.
 
  -- Anthony Wong <anthony.wong@ubuntu.com>  Sat, 04 Jan 2014 16:51:04 +0800
 
