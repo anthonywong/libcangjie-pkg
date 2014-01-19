@@ -12,7 +12,7 @@ License: LGPL-3+
 
 Files: data/table.txt
 Copyright: 2013 The libcangjie authors
-License: Public domain
+License: public-domain
  Upstream authors declare this file as under the Public Domain,
  according to data/README.table.rst, "in the hope that is is useful."
  .
