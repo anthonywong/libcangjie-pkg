@@ -12,7 +12,7 @@ Build-Depends: debhelper (>= 9),
                pkg-config
 Standards-Version: 3.9.5
 Homepage: https://github.com/Cangjians/libcangjie
-Vcs-Git: git://git.debian.org/git/pkg-ime/libcangjie.git
+Vcs-Git: git://anonscm.debian.org/git/pkg-ime/libcangjie.git
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-ime/libcangjie.git;a=summary
 
 Package: libcangjie2
