@@ -54,7 +54,6 @@ Package: libcangjie2-dbg
 Section: debug
 Architecture: any
 Multi-Arch: same
-Priority: extra
 Depends: ${misc:Depends},
          libcangjie2 (= ${binary:Version})
 Description: Cangjie input method library (debug)
