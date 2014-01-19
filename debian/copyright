@@ -13,6 +13,14 @@ License: LGPL-3+
 Files: data/table.txt
 Copyright: 2013 The libcangjie authors
 License: Public domain
+ Upstream authors declare this file as under the Public Domain,
+ according to data/README.table.rst, "in the hope that is is useful."
+ .
+ The data was generated out of the following sources:
+ * The Unihan database from the Unicode consortium
+ * The Unicode specification
+ * The data from Wan Leung Wong's original libcangjie
+ * Some careful thought from the libcangjie team
 
 Files: debian/*
 Copyright: 2013-2014 Anthony Wong <anthony.wong@ubuntu.com>
