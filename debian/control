@@ -44,6 +44,7 @@ Multi-Arch: same
 Depends: ${shlibs:Depends}, ${misc:Depends},
          libcangjie2 (= ${binary:Version}),
          libsqlite3-dev
+Conflicts: libcangjie-dev
 Description: Cangjie input method library (development)
  This is a library that provides functions related to the Cangjie
  Chinese input method.
@@ -55,6 +56,7 @@ Section: devel
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
          libcangjie2 (= ${binary:Version})
+Conflicts: libcangjie-dev
 Multi-Arch: foreign
 Description: Cangjie input method library development tools
  This is a library that provides functions related to the Cangjie
