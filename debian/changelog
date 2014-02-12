@@ -1,3 +1,12 @@
+libcangjie (1.1-1) unstable; urgency=low
+
+  * New upstream release.
+  * debian/control: libcangjie2-dev and libcangjie2-dev-tools conflict
+    with libcangjie-dev as they they cannot co-exist. (Closes:
+    #736191, #736193)
+
+ -- Anthony Wong <anthony.wong@ubuntu.com>  Thu, 13 Feb 2014 01:01:23 +0800
+
 libcangjie (1.0-1) unstable; urgency=low
 
   * New upstream release.
