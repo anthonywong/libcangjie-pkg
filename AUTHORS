@@ -2,10 +2,12 @@
 #
 # libcangjie was written by these people:
 
+Anthony Wong <anthony.wong@canonical.com>
+Dridi Boukelmoune <dridi.boukelmoune@gmail.com>
+jeremy-fouriaux <jeremy@raijin.(none)>
 Koala Yeung <koalay@gmail.com>
 Linquize <linquize@yahoo.com.hk>
 Mathieu Bridon <bochecha@fedoraproject.org>
-jeremy-fouriaux <jeremy@raijin.(none)>
 
 # libcangjie would not have been possible without Wan Leung Wong's work on the
 # original libcangjie: https://github.com/wanleung/libcangjie
