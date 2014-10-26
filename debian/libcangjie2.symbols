@@ -1,0 +1,15 @@
+libcangjie.so.2 libcangjie2 #MINVER#
+ cangjie_char_free@Base 1.2
+ cangjie_char_list_append@Base 1.2
+ cangjie_char_list_free@Base 1.2
+ cangjie_char_list_new_elem@Base 1.2
+ cangjie_char_list_prepend@Base 1.2
+ cangjie_char_new@Base 1.2
+ cangjie_free@Base 1.2
+ cangjie_get_characters@Base 1.2
+ cangjie_get_characters_by_shortcode@Base 1.2
+ cangjie_get_filter_query@Base 1.2
+ cangjie_get_radical@Base 1.2
+ cangjie_is_input_key@Base 1.2
+ cangjie_new@Base 1.2
+ cangjie_radicals@Base 1.2
