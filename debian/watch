@@ -1,2 +1,2 @@
 version=3
-http://cangjians.github.io/downloads/libcangjie/libcangjie-(.+).tar.xz
+https://github.com/Cangjians/libcangjie/releases /Cangjians/libcangjie/releases/download/v(?:.+)/libcangjie-(.+).tar.xz
